@@ -1,15 +1,17 @@
 jenkins:
   image: jenkins
   container_name: jenkins
+  environment:
+    - JENKINS_OPTS=--prefix=/jenkins
   expose:
     - "8080"
-  volumes: 
-    - ~/Development/jenkins_home:/var/jenkins_home
+  volumes:
+    - ~/jenkins_home:/var/jenkins_home
 nginx:
   image: nginx
-  ports: 
+  ports:
     - "80:80"
-  volumes: 
-    - ~/Development/jenkins/nginx.conf:/etc/nginx/nginx.conf:ro
+  volumes:
+    - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
   links: 
     - jenkins
